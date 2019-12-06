@@ -5,10 +5,8 @@ var axios = require("axios");
 
 var command = process.argv[2];
 var value = process.argv[3];
-var artistRaw = process.argv.slice(3);
-var artist = artistRaw.join(" ");
-var songRaw = process.argv.slice(3);
-var song = songRaw.join(" ");
+var artist = process.argv.slice(3).join(" ");
+var song = process.argv.slice(3).join(" ");
 
 switch(command) {
     case 'movie-this':
