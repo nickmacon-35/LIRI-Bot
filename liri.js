@@ -1,6 +1,8 @@
 require("dotenv").config();
 
 var keys = require("./keys.js");
+console.log(keys.id);
+console.log(keys.secret);
 var axios = require("axios");
 
 var command = process.argv[2];
