@@ -5,8 +5,10 @@ var axios = require("axios");
 
 var command = process.argv[2];
 var value = process.argv[3];
-var artistString = process.argv.slice(3);
-var artist = artistString.join(" ");
+var artistRaw = process.argv.slice(3);
+var artist = artistRaw.join(" ");
+var songRaw = process.argv.slice(3);
+var song = songRaw.join(" ");
 
 switch(command) {
     case 'movie-this':
@@ -17,6 +19,12 @@ switch(command) {
 switch(command) {
     case 'concert-this':
         concert();
+    break;
+}
+
+switch(command) {
+    case 'spotify-this-song':
+        spotify();
     break;
 }
 
