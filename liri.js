@@ -1,12 +1,13 @@
 require("dotenv").config();
 
 var keys = require("./keys.js");
-console.log(keys.id);
-console.log(keys.secret);
+// console.log(keys.id);
+// console.log(keys.secret);
 var axios = require("axios");
 
 var command = process.argv[2];
 var value = process.argv[3];
+var movie = process.argv.slice(3).join(" ");
 var artist = process.argv.slice(3).join(" ");
 var song = process.argv.slice(3).join(" ");
 
@@ -57,7 +58,7 @@ function movie() {
   }
 
   else {
-    var queryUrl = "https://www.omdbapi.com/?t=" + value + "&apikey=trilogy";
+    var queryUrl = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy";
     axios.get(queryUrl)
     .then(function(response) {
         console.log("----------------------------------------");
@@ -104,4 +105,14 @@ function concert() {
         }
     });
   }
+}
+
+function spotify() {
+    keys.search({ type: 'track', query: 'Hot Girl Bummer' })
+    .then(function(response) {
+      console.log(response);
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
 }
