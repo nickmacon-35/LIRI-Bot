@@ -1,9 +1,12 @@
 require("dotenv").config();
 
+var fs = require("fs");
+var moment = require("moment");
 var keys = require("./keys.js");
 // console.log(keys.id);
 // console.log(keys.secret);
 var axios = require("axios");
+
 
 var command = process.argv[2];
 var value = process.argv[3];
@@ -86,7 +89,8 @@ function concert() {
         console.log("----------------------------------------");
         console.log("Venue Name: " + response.data[i].venue.name);
         console.log("Venue Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country);
-        console.log("Concert Date: " + response.data[i].datetime);
+        moment = new Date(response.data[i].datetime);
+        console.log((moment.getMonth()+1) + '/' + moment.getDate() + '/' + moment.getFullYear());
         console.log("----------------------------------------");
         }
     });
@@ -100,7 +104,8 @@ function concert() {
         console.log("----------------------------------------");
         console.log("Venue Name: " + response.data[i].venue.name);
         console.log("Venue Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country);
-        console.log("Concert Date: " + response.data[i].datetime);
+        moment = new Date(response.data[i].datetime);
+        console.log((moment.getMonth()+1) + '/' + moment.getDate() + '/' + moment.getFullYear());
         console.log("----------------------------------------");
         }
     });
@@ -108,11 +113,48 @@ function concert() {
 }
 
 function spotify() {
-    keys.search({ type: 'track', query: 'Hot Girl Bummer' })
-    .then(function(response) {
-      console.log(response);
+    console.log("You are in spotify command")
+
+  if (value === undefined) {
+    keys.search({ type: 'track', query: "The Sign" })
+        .then(function(response) {
+        console.log("----------------------------------------");
+        console.log("Artist: " + JSON.stringify(response.tracks.items[6].album.artists[0].name));
+        console.log("Song Title: " + JSON.stringify(response.tracks.items[6].name));
+        console.log("Spotify Link to the song: " + JSON.stringify(response.tracks.items[6].external_urls.spotify));
+        console.log("From Album: " + JSON.stringify(response.tracks.items[6].album.name));
+        console.log("----------------------------------------");
     })
     .catch(function(err) {
-      console.log(err);
+        console.log(err);
     });
+  }
+
+  else {
+    keys.search({ type: 'track', query: song })
+        .then(function(response) {
+    for (var i=0; i < response.tracks.items[i].length; i++) {
+        console.log("----------------------------------------");
+        console.log("Artist: " + JSON.stringify(response.tracks.items[i].album.artists[0].name));
+        console.log("Song Title: " + JSON.stringify(response.tracks.items[i].name));
+        console.log("Spotify Link to the song: " + JSON.stringify(response.tracks.items[i].external_urls.spotify));
+        console.log("From Album: " + JSON.stringify(response.tracks.items[i].album.name));
+        console.log("----------------------------------------");
+    }
+    })
+    .catch(function(err) {
+        console.log(err);
+    });
+  }
 }
+
+
+// function doWhat() {
+//     fs.readFile("random.txt", "utf8", function(err, data) {
+//         if (err) {
+//           return console.log(err);
+//         }
+//     // Break the string down by comma separation and store the contents into the output array.
+//     var output = data.split(",");
+    
+// }
